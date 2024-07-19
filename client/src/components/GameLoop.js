@@ -37,15 +37,16 @@ const GameLoop = ({children, allCharactersData}) => {
                     ...mycharacterData,
                     position: newPosition
                 };
-                const updatedCharactersData = {
-                    ...allCharactersData,
-                    [MY_CHARACTER_INIT_CONFIG.id]: updatedCharacterData
-                };
-                updateAllCharactersData(updatedCharactersData);
-                console.log(updatedCharactersData);
+
+                const users = { ...allCharactersData };
+                const myId = MY_CHARACTER_INIT_CONFIG.id;
+                users[myId] = updatedCharacterData;
+
+                updateAllCharactersData(users);
+                console.log("Updated Characters Data: ", users);
             }
         }
-    }, [mycharacterData, allCharactersData, updateAllCharactersData]);
+    }, [mycharacterData, updateAllCharactersData]);
 
     const tick = useCallback(() => {
         if (context != null) {

@@ -5,6 +5,8 @@ import CanvasContext from './CanvasContext';
 import {MOVE_DIRECTIONS, MAP_DIMENSIONS, TILE_SIZE} from './mapConstants';
 import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
 import {checkMapCollision} from './utils';
+import { update as updateAllCharactersData } from './slices/allCharactersSlice'; // import the update action
+
 
 const GameLoop = ({children, allCharactersData}) => {
     const canvasRef = useRef(null);
@@ -21,12 +23,29 @@ const GameLoop = ({children, allCharactersData}) => {
 
     const moveMyCharacter = useCallback((e) => {
         var currentPosition = mycharacterData.position;
-        const key = e.key;
+        const key = e.key.toLowerCase();
         if (MOVE_DIRECTIONS[key]) {
-            // ***********************************************
-            // TODO: Add your move logic here
+            const [dx, dy] = MOVE_DIRECTIONS[key];
+            const newPosition = {
+                x: currentPosition.x + dx,
+                y: currentPosition.y + dy,
+            };
+
+            // Check for collisions and map boundaries
+            if (!checkMapCollision(newPosition.x, newPosition.y)) {
+                const updatedCharacterData = {
+                    ...mycharacterData,
+                    position: newPosition
+                };
+                const updatedCharactersData = {
+                    ...allCharactersData,
+                    [MY_CHARACTER_INIT_CONFIG.id]: updatedCharacterData
+                };
+                updateAllCharactersData(updatedCharactersData);
+                console.log(updatedCharactersData);
+            }
         }
-    }, [mycharacterData]);
+    }, [mycharacterData, allCharactersData, updateAllCharactersData]);
 
     const tick = useCallback(() => {
         if (context != null) {

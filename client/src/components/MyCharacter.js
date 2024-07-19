@@ -21,7 +21,7 @@ function MyCharacter({ myCharactersData, loadCharacter, updateAllCharactersData,
         const myId = MY_CHARACTER_INIT_CONFIG.id;
         users[myId] = myInitData;
         updateAllCharactersData(users);
-    }, [webrtcSocket]);
+    }, [webrtcSocket, updateAllCharactersData]);
 
     useEffect(() => {
         if (context == null || myCharactersData == null) {
@@ -40,6 +40,19 @@ function MyCharacter({ myCharactersData, loadCharacter, updateAllCharactersData,
             CHARACTER_IMAGE_SIZE,
             CHARACTER_IMAGE_SIZE
         );
+        
+        // context.canvas.drawImage(
+        //     characterImg,
+        //     sx,
+        //     sy,
+        //     CHARACTER_IMAGE_SIZE - 5,
+        //     CHARACTER_IMAGE_SIZE - 5,
+        //     myCharactersData.position.x * TILE_SIZE,
+        //     myCharactersData.position.y * TILE_SIZE,
+        //     CHARACTER_IMAGE_SIZE,
+        //     CHARACTER_IMAGE_SIZE
+        // );
+        
         loadCharacter(true);
     }, [context, myCharactersData?.position.x, myCharactersData?.position.y, loadCharacter]);
 

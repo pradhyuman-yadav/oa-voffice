@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import CanvasContext from './CanvasContext';
 
 import {loadCharacter} from './slices/statusSlice';
+import { firebaseDatabase as database } from '../firebase/firebase'; // Import Firebase Realtime Database
+import { ref, set } from 'firebase/database';
 
 import {MOVE_DIRECTIONS, MAP_DIMENSIONS, TILE_SIZE} from './mapConstants';
 import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
@@ -24,6 +26,9 @@ const GameLoop = ({children, allCharactersData, updateAllCharactersData}) => {
     const mycharacterData = allCharactersData[MY_CHARACTER_INIT_CONFIG.id];
 
     const moveMyCharacter = useCallback((e) => {
+
+        if (!mycharacterData) return;
+
         var currentPosition = mycharacterData.position;
         const key = e.key.toLowerCase();
         if (MOVE_DIRECTIONS[key]) {
@@ -46,6 +51,8 @@ const GameLoop = ({children, allCharactersData, updateAllCharactersData}) => {
 
                 updateAllCharactersData(users);
                 console.log("Updated Characters Data: ", users);
+
+                set(ref(database, `users/${myId}`), updatedCharacterData);
             }
         }
 

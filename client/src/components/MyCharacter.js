@@ -8,6 +8,9 @@ import {loadCharacter} from './slices/statusSlice';
 import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
 import {update as updateAllCharactersData} from './slices/allCharactersSlice'
 
+import { firebaseDatabase as database } from '../firebase/firebase'; // Import Firebase Realtime Database
+import { ref, set } from 'firebase/database';
+
 
 function MyCharacter({ myCharactersData, loadCharacter, updateAllCharactersData, webrtcSocket }) {
     const context = useContext(CanvasConext);
@@ -21,6 +24,7 @@ function MyCharacter({ myCharactersData, loadCharacter, updateAllCharactersData,
         const myId = MY_CHARACTER_INIT_CONFIG.id;
         users[myId] = myInitData;
         updateAllCharactersData(users);
+        set(ref(database, `users/${myId}`), myInitData);
     }, [webrtcSocket, updateAllCharactersData]);
 
     useEffect(() => {

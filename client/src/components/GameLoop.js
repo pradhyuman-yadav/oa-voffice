@@ -46,6 +46,7 @@ const GameLoop = ({children, allCharactersData}) => {
                 console.log("Updated Characters Data: ", users);
             }
         }
+
     }, [mycharacterData, updateAllCharactersData]);
 
     const tick = useCallback(() => {

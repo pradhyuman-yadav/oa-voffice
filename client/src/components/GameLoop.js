@@ -2,13 +2,15 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import CanvasContext from './CanvasContext';
 
+import {loadCharacter} from './slices/statusSlice';
+
 import {MOVE_DIRECTIONS, MAP_DIMENSIONS, TILE_SIZE} from './mapConstants';
 import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
 import {checkMapCollision} from './utils';
 import { update as updateAllCharactersData } from './slices/allCharactersSlice'; // import the update action
 
 
-const GameLoop = ({children, allCharactersData}) => {
+const GameLoop = ({children, allCharactersData, updateAllCharactersData}) => {
     const canvasRef = useRef(null);
     const [context, setContext] = useState(null);
     useEffect(() => {
@@ -47,7 +49,7 @@ const GameLoop = ({children, allCharactersData}) => {
             }
         }
 
-    }, [mycharacterData, updateAllCharactersData]);
+    }, [mycharacterData, allCharactersData, updateAllCharactersData]);
 
     const tick = useCallback(() => {
         if (context != null) {
@@ -87,4 +89,6 @@ const mapStateToProps = (state) => {
     return {allCharactersData: state.allCharacters.users};
 };
 
-export default connect(mapStateToProps, {})(GameLoop);
+const mapDispatch = {loadCharacter, updateAllCharactersData};
+
+export default connect(mapStateToProps, mapDispatch)(GameLoop);

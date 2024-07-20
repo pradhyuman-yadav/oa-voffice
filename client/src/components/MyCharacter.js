@@ -9,10 +9,10 @@ import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
 import {update as updateAllCharactersData} from './slices/allCharactersSlice'
 
 import { firebaseDatabase as database } from '../firebase/firebase'; // Import Firebase Realtime Database
-import { ref, set } from 'firebase/database';
+import { ref, set, onValue} from 'firebase/database';
 
 
-function MyCharacter({ myCharactersData, loadCharacter, updateAllCharactersData, webrtcSocket }) {
+function MyCharacter({ myCharactersData, loadCharacter, updateAllCharactersData, webrtcSocket, allCharactersData }) {
     const context = useContext(CanvasConext);
     useEffect(() => {
         const myInitData = {
@@ -25,7 +25,19 @@ function MyCharacter({ myCharactersData, loadCharacter, updateAllCharactersData,
         users[myId] = myInitData;
         updateAllCharactersData(users);
         set(ref(database, `users/${myId}`), myInitData);
-    }, [webrtcSocket, updateAllCharactersData]);
+
+        const characterRef = ref(database, `users/${myId}`);
+        const unsubscribe = onValue(characterRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            const updatedCharactersData = { ...allCharactersData, [myId]: data };
+            console.log("Updated Characters Data from Firebase: ", updatedCharactersData);
+            updateAllCharactersData(updatedCharactersData);
+        }
+        });
+        return () => unsubscribe();
+
+    }, [webrtcSocket, updateAllCharactersData, allCharactersData]);
 
     useEffect(() => {
         if (context == null || myCharactersData == null) {

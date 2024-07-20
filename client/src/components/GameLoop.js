@@ -4,7 +4,7 @@ import CanvasContext from './CanvasContext';
 
 import {loadCharacter} from './slices/statusSlice';
 import { firebaseDatabase as database } from '../firebase/firebase'; // Import Firebase Realtime Database
-import { ref, set } from 'firebase/database';
+import { ref, set, onValue} from 'firebase/database';
 
 import {MOVE_DIRECTIONS, MAP_DIMENSIONS, TILE_SIZE} from './mapConstants';
 import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
@@ -17,7 +17,7 @@ const GameLoop = ({children, allCharactersData, updateAllCharactersData}) => {
     const [context, setContext] = useState(null);
     useEffect(() => {
         // frameCount used for re-rendering child components
-        console.log("initial setContext");
+        // console.log("initial setContext");
         setContext({canvas: canvasRef.current.getContext('2d'), frameCount: 0});
     }, [setContext]);
 
@@ -48,9 +48,6 @@ const GameLoop = ({children, allCharactersData, updateAllCharactersData}) => {
                 const users = { ...allCharactersData };
                 const myId = MY_CHARACTER_INIT_CONFIG.id;
                 users[myId] = updatedCharacterData;
-
-                updateAllCharactersData(users);
-                console.log("Updated Characters Data: ", users);
 
                 set(ref(database, `users/${myId}`), updatedCharacterData);
             }

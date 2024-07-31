@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import GameLoop from './components/GameLoop';
 import Office from './components/Office';
@@ -15,9 +15,15 @@ function App() {
   WEBRTC_SOCKET.on('connect', () => {
     setSocketConnected(true);
   });
+
+  useEffect(() => {
+    document.title = "Office App - Game Loop";
+  }, []);
+
   return (
     <>
-        <header>        
+        <header className="App-header">
+          <h1 className='App-header-h1'>OFFICE APP</h1>
         </header>
         {socketConnected &&
           <main class="content">

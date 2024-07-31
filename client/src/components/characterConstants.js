@@ -8,7 +8,19 @@ export const CHARACTER_CLASSES_MAP = {
         icon: {sx: 0, sy: 0},
         portrait: {sx: 0, sy: 240},
         className: 'ENGINEER',
-        spriteImage: 'assets/characters/characters.png',        
+        spriteImage: 'assets/characters/character1.png',        
+    },
+    MANAGER: {
+        icon: {sx: 0, sy: 0},
+        portrait: {sx: 0, sy: 240},
+        className: 'MANAGER',
+        spriteImage: 'assets/characters/character2.png',        
+    },
+    IT: {
+        icon: {sx: 0, sy: 0},
+        portrait: {sx: 0, sy: 240},
+        className: 'IT',
+        spriteImage: 'assets/characters/character3.png',        
     },
 };
 

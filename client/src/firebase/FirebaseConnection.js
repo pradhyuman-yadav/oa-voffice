@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ref, set, onValue} from 'firebase/database';
 import { connect } from "react-redux"; // Assuming you're using Redux
-import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
-import { firebaseDatabase as database } from '../firebase/firebase'; // Import Firebase Realtime Database
-import {update as updateAllCharactersData} from './slices/allCharactersSlice'
+import { MY_CHARACTER_INIT_CONFIG } from '../components/characterConstants';
+import { firebaseDatabase as database } from './firebase'; // Import Firebase Realtime Database
+import {update as updateAllCharactersData} from '../components/slices/allCharactersSlice'
 
 const FirebaseConnection = ({updateAllCharactersData, allCharactersData }) => {
     useEffect(() => {

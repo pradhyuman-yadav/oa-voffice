@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+import MyVideo from './components/Video/MyVideo';
+
 import GameLoop from './components/GameLoop';
 import Office from './components/Office';
-import FirebaseConnection from './components/FirebaseConnection';
+import FirebaseConnection from './firebase/FirebaseConnection';
 
 import './App.css';
 import { io } from 'socket.io-client';
@@ -27,9 +29,14 @@ function App() {
         </header>
         {socketConnected &&
           <main class="content">
+            <div className="main-container">
               <GameLoop>
                 <Office webrtcSocket={WEBRTC_SOCKET}/>
               </GameLoop>
+            </div>
+            <div className="video-container">
+                <MyVideo />
+            </div>
               <FirebaseConnection />
           </main>
         }

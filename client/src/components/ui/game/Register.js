@@ -50,8 +50,7 @@ const Register = ({allowMove, allCharactersData, updateAllCharactersData}) => {
             <Modal
                 isOpen={isOpen}
                 onClose={onClose}
-                closeOnOverlayClick={false}
-            >
+                closeOnOverlayClick={false}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Create your account</ModalHeader>

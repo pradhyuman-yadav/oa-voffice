@@ -36,11 +36,15 @@ function App() {
         </header>
         {socketConnected &&
           <main className="content">
+            <div className="main-container">
               <GameLoop>
                 <Office webrtcSocket={WEBRTC_SOCKET}/>
               </GameLoop>
               <Register blockKeyPress={blockKeyPress} setBlockKeyPress={setBlockKeyPress}  />
+            </div>
+            <div className="video-container">
               <VideoManager webrtcSocket={WEBRTC_SOCKET} />
+            </div>
           </main>
         }
         <footer>

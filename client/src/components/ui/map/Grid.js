@@ -1,12 +1,15 @@
 import {useContext, useEffect} from 'react';
-import CanvasContext from './CanvasContext';
-import {TILE_SIZE} from './mapConstants';
+import CanvasContext from '../../CanvasContext';
+import {TILE_SIZE} from '../../../constances/mapConstants';
 
 const Grid = ({width, height, children}) => {
     const context = useContext(CanvasContext);
     useEffect(() => {
-        for(let i = 0; i < height; i++) {    
-            const y = i * TILE_SIZE;         
+        if (!context || !context.canvas) {
+            return;
+        }
+        for(let i = 0; i < height; i++) {
+            const y = i * TILE_SIZE;
             context.canvas.beginPath();
             context.canvas.moveTo(0, y);
             context.canvas.lineTo(width, y);
@@ -18,7 +21,7 @@ const Grid = ({width, height, children}) => {
             context.canvas.moveTo(x, 0);
             context.canvas.lineTo(x, height);
             context.canvas.stroke();
-        } 
+        }
     }, [context, height, width]);
     return children;
 }

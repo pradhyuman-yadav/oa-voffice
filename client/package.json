@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -10,8 +11,9 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "firebase": "^10.12.4",
+    "firebase": "^10.1.0",
     "framer-motion": "^10.15.0",
+    "peerjs": "^1.5.2",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
@@ -26,7 +28,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:client": "npm run copy-common-files && react-scripts start",
+    "start:client:github": "npm run copy-common-files && sudo lsof -ti:3000 | xargs -r sudo kill && REACT_APP_ENV=github react-scripts start",
+    "copy-common-files": "cp -r ../common/src/* ./src/",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

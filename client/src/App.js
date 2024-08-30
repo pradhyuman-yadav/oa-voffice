@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-import MyVideo from './components/Video/MyVideo';
-
-import GameLoop from './components/GameLoop';
-import Office from './components/Office';
-import FirebaseConnection from './firebase/FirebaseConnection';
+import GameLoop from './components/ui/game/GameLoop';
+import Office from './components/ui/map/Office';
+import VideoManager from "./components/ui/video/VideoManager";
+import ChatRoom from "./components/ui/chat/ChatRoom";
+import Register from "./components/ui/game/Register";
 
 import './App.css';
 import { io } from 'socket.io-client';
-import AllCharacters from './components/AllCharacters';
+import { ChakraProvider } from '@chakra-ui/react'
 
 const WEBRTC_SOCKET = io('http://localhost:8080');
 
@@ -18,30 +18,34 @@ function App() {
     setSocketConnected(true);
   });
 
+  const [blockKeyPress, setBlockKeyPress] = useState(false);
+    const handleKeyPress = (event) => {
+        if (blockKeyPress) {
+            event.stopPropagation();
+        }
+    };
+
   useEffect(() => {
     document.title = "Office App - Game Loop";
   }, []);
 
   return (
     <>
-        <header className="App-header">
-          <h1 className='App-header-h1'>OFFICE APP</h1>
+      <ChakraProvider>
+        <header>
         </header>
         {socketConnected &&
-          <main class="content">
-            <div className="main-container">
+          <main className="content">
               <GameLoop>
                 <Office webrtcSocket={WEBRTC_SOCKET}/>
               </GameLoop>
-            </div>
-            <div className="video-container">
-                <MyVideo />
-            </div>
-              <FirebaseConnection />
+              <Register blockKeyPress={blockKeyPress} setBlockKeyPress={setBlockKeyPress}  />
+              <VideoManager webrtcSocket={WEBRTC_SOCKET} />
           </main>
         }
         <footer>
         </footer>
+        </ChakraProvider>
     </>
   );
 }

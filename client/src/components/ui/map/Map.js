@@ -1,9 +1,9 @@
 import {useContext, useEffect} from 'react';
 import { connect } from 'react-redux';
 
-import {LAYERS, MAP_DIMENSIONS, TILE_SIZE} from './mapConstants';
-import CanvasContext from './CanvasContext';
-import {loadMap} from './slices/statusSlice';
+import {LAYERS, MAP_DIMENSIONS, TILE_SIZE} from '../../../constances/mapConstants';
+import CanvasContext from '../../CanvasContext';
+import {loadMap} from '../../slices/statusSlice';
 
 const mapDispatch = { loadMap };
 
@@ -12,6 +12,9 @@ const Map = ({ loadMap }) => {
     const {COLS, ROWS} = MAP_DIMENSIONS;
 
     useEffect(() => {
+        if (!context || !context.canvas) {
+            return;
+        }
         const drawLayer = grid => {
             for (let i = 0; i < ROWS; i++) {
                 for (let j = 0; j < COLS; j++) {
@@ -19,7 +22,7 @@ const Map = ({ loadMap }) => {
                     if (!item) {
                         // empty tile
                         continue;
-                    }                
+                    }
                     const img = document.querySelector(`#map-tile-img-${item}`);
                     const x = j * TILE_SIZE;
                     const y = i * TILE_SIZE;

@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 const mapImagesSlice = createSlice({
+    // TODO: Typo here? Name it doesn't matter?
     name: 'mapIimages',
     initialState: {},
     reducers: {
@@ -7,7 +8,7 @@ const mapImagesSlice = createSlice({
             const path = action.payload;
             if (path) {
                 state[path] = 1;
-            }            
+            }
         },
     }
 });

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {MAP_TILE_IMAGES} from './mapConstants';
-import {CHARACTER_CLASSES_MAP} from './characterConstants';
-import {bufferImage} from './slices/mapImagesSlice';
-import { bufferImage as bufferCharacterImage } from './slices/characterImagesSlice';
+import {MAP_TILE_IMAGES} from '../../../constances/mapConstants';
+import {CHARACTER_CLASSES_MAP} from '../../../constances/characterConstants';
+import {bufferImage} from '../../slices/mapImagesSlice';
+import { bufferImage as bufferCharacterImage } from '../../slices/characterImagesSlice';
 const mapDispatch = { bufferImage };
 
 const ImagesBuffer = ({ bufferImage }) => {
@@ -13,11 +13,11 @@ const ImagesBuffer = ({ bufferImage }) => {
             Object.keys(MAP_TILE_IMAGES).map(key => {
                 return (
                     <img
-                        key={`map-tile-img-${key}`} 
-                        id={`map-tile-img-${key}`} 
+                        key={`map-tile-img-${key}`}
+                        id={`map-tile-img-${key}`}
                         src={`${MAP_TILE_IMAGES[key]}`}
                         alt={`map-tile-${key}`}
-                        onLoad={() => {      
+                        onLoad={() => {
                             bufferImage(MAP_TILE_IMAGES[key]);
                         }}
                     />
@@ -29,11 +29,11 @@ const ImagesBuffer = ({ bufferImage }) => {
                 var characterInfo = CHARACTER_CLASSES_MAP[key];
                 return (
                     <img
-                        key={`character-sprite-img-${characterInfo['className']}`} 
-                        id={`character-sprite-img-${characterInfo['className']}`} 
+                        key={`character-sprite-img-${characterInfo['className']}`}
+                        id={`character-sprite-img-${characterInfo['className']}`}
                         src={`${characterInfo['spriteImage']}`}
                         alt={`character-sprite-${characterInfo['className']}`}
-                        onLoad={() => {      
+                        onLoad={() => {
                             bufferCharacterImage(characterInfo['spriteImage']);
                         }}
                     />

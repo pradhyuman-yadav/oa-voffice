@@ -5,6 +5,7 @@ const statusSlice = createSlice({
     initialState: {
         mapLoaded: false,
         characterLoaded: false,
+        moveAllowed: false,
     },
     reducers: {
         loadMap(state, payload) {
@@ -13,9 +14,13 @@ const statusSlice = createSlice({
         loadCharacter(state, payload) {
             state.characterLoaded = payload;
         },
+        allowMove(state, payload) {
+            console.log('statusSlice allowMove payload', payload);
+            state.moveAllowed = payload;
+        },
     }
 });
 
-export const { loadMap, loadCharacter } = statusSlice.actions;
+export const { loadMap, loadCharacter, allowMove } = statusSlice.actions;
 
 export default statusSlice.reducer;

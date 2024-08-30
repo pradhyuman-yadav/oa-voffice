@@ -8,22 +8,11 @@ export const CHARACTER_CLASSES_MAP = {
         icon: {sx: 0, sy: 0},
         portrait: {sx: 0, sy: 240},
         className: 'ENGINEER',
-        spriteImage: 'assets/characters/character1.png',        
-    },
-    MANAGER: {
-        icon: {sx: 0, sy: 0},
-        portrait: {sx: 0, sy: 240},
-        className: 'MANAGER',
-        spriteImage: 'assets/characters/character2.png',        
-    },
-    IT: {
-        icon: {sx: 0, sy: 0},
-        portrait: {sx: 0, sy: 240},
-        className: 'IT',
-        spriteImage: 'assets/characters/character3.png',        
+        spriteImage: 'assets/characters/characters.png',
     },
 };
 
+// TODO: Why we need to set this as a constance, position is hard to change. Is here a better way to do this?
 export const MY_CHARACTER_INIT_CONFIG = {
     name: 'Amanda',
     id: uuid(),

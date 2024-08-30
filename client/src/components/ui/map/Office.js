@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Grid from './Grid';
 import ImagesBuffer from './ImagesBuffer';
 import Map from './Map';
-import CanvasContext from './CanvasContext';
-import MyCharacter from './MyCharacter';
-import {MAP_DIMENSIONS, TILE_SIZE, MAP_TILE_IMAGES} from './mapConstants';
-import AllCharacters from './AllCharacters';
+import CanvasContext from '../../CanvasContext';
+import MyCharacter from '../character/MyCharacter';
+import DatabaseCharacter from "../character/DatabaseCharacter";
+import {MAP_DIMENSIONS, TILE_SIZE, MAP_TILE_IMAGES} from '../../../constances/mapConstants';
 
 const Office = ({mapImagesLoaded, gameStatus, webrtcSocket}) => {
     const width = MAP_DIMENSIONS.COLS * TILE_SIZE;
@@ -25,12 +25,13 @@ const Office = ({mapImagesLoaded, gameStatus, webrtcSocket}) => {
             {Object.keys(mapImagesLoaded).length === Object.keys(MAP_TILE_IMAGES).length &&
                 <>
                     <Grid width={width} height={height}>
-                        <Map />                
+                        <Map />
                     </Grid>
                 </>
             }
+            {/*TODO: Loading Order? How to control exectue ordering here */}
             {gameStatus.mapLoaded && <MyCharacter webrtcSocket={webrtcSocket}/>}
-            {<AllCharacters webrtcSocket={webrtcSocket}/>}
+            {gameStatus.characterLoaded && <DatabaseCharacter />}
         </>
     );
 };

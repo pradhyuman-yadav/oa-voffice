@@ -25,16 +25,45 @@ Virtual Office app for internship project.
 * npm
 * Broswer
 
-### Installation
 
-1. Install NPM packages And start backend server
-   ```sh
-   cd server && npm install && node index.js
-   ```
-2. Install NPM packages And start frontend
-   ```sh
-   cd ../client && npm install && npm run-script build && npx serve -s build
-   ```
-3. Open a browser window and go to http://localhost:3000/
+### Installation and Code Execution
+
+1.  Go to your local directory in your terminal
+
+        You'll see 2 directories: client and server
+
+2. Go to the server directory
+    `cd server`
+
+3. Install all dependencies
+    `npm install`
+
+4. Go to the server source directory
+    `cd src`
+
+5. Start your backend server
+    `node index.js`
+        If it starts successfully, you should see *"Server is running on port 8080"*
+
+6. Keep your server running and open a new terminal
+    - Go to your local directory in your terminal
+
+7. Go to the client directory
+    `cd client`
+
+8. Install all dependencies
+    `npm install`
+
+9. Build frontend code
+    `npm run-script build`
+
+        You can ignore the warnings. If it builds successfully, you should see *"The build folder is ready to be deployed"* towards the end
+
+10. Start your frontend server
+    `serve -s build` or `npx serve -s build`
+
+11. Open a browser window and go to http://localhost:3000/
+
+12. You should see a map with a character in the middle
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
